@@ -1,8 +1,8 @@
 @echo off
 
-echo Starting Dashboard...
+cd /d "C:\Users\SMK\OneDrive - GPV Group\Desktop\ReflowDashboard"
 
-start "Flask" cmd /k "cd /d %~dp0 && python app.py"
+start "Flask" cmd /c "python app.py"
 
 timeout /t 10
 
