@@ -2,9 +2,9 @@
 
 echo Starting Dashboard...
 
-start "" cmd /c "python app.py"
+start "Flask" cmd /k "cd /d %~dp0 && python app.py"
 
-timeout /t 8
+timeout /t 10
 
 echo Refreshing data...
 
@@ -19,6 +19,4 @@ git commit -m "update data"
 git pull origin main --rebase
 git push
 
-echo.
-echo ===== COMPLETE =====
 pause
