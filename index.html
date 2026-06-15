@@ -320,7 +320,7 @@ async function loadData(forceDate=false){
     const res = await fetch("./static/data.json");
     const result = await res.json();
 
-    rawData = result.data || [];
+    rawData = result || [];
     specData = {};
 
     if(rawData.length){
