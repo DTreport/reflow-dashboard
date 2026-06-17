@@ -4,7 +4,6 @@ import glob
 import re
 from datetime import datetime
 
-print("CURRENT PATH =", os.getcwd())
 app = Flask(__name__)
 
 # Main reflow profile folder
@@ -374,19 +373,7 @@ def refresh():
             DATA_CACHE,
             f,
             ensure_ascii=False
-    )
-
-    with open(
-       "static/spec.json",
-       "w",
-        encoding="utf-8"
-    ) as f:
-
-        json.dump(
-            SPEC_CACHE,
-            f,
-            ensure_ascii=False
-    )
+        )
 
     LAST_REFRESH = datetime.now().strftime(
         "%Y-%m-%d %H:%M:%S"
@@ -409,10 +396,30 @@ def api_data():
 
 if __name__ == "__main__":
     DATA_CACHE = load_data()
+    LAST_REFRESH = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    LAST_REFRESH = datetime.now().strftime(
-        "%Y-%m-%d %H:%M:%S"
+    app.run(
+        host="0.0.0.0",
+        port=5000,
+        debug=True
     )
+
+@app.route("/debug")
+def debug():
+
+    file = glob.glob(
+        r"N:\Electronics\SMT\94.SRA PROFILE\SRA LINE1\*.txt"
+    )[0]
+
+    with open(file, "r", encoding="utf-8", errors="ignore") as f:
+        lines = f.readlines()
+
+    return "<br>".join(lines[:80])
+
+
+if __name__=="__main__":
+
+    DATA_CACHE = load_data()
 
     app.run(
         host="0.0.0.0",
