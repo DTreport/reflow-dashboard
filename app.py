@@ -4,6 +4,7 @@ import glob
 import re
 from datetime import datetime
 
+print("CURRENT PATH =", os.getcwd())
 app = Flask(__name__)
 
 # Main reflow profile folder
