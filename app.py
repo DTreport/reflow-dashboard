@@ -336,18 +336,28 @@ def parse_profile(file_path, line_name):
 def load_data():
     """Load all txt files from SRA LINE1-10."""
     all_rows = []
+    total_files = 0
 
     for i in range(1, 11):
         line_name = f"Line{i}"
         folder = os.path.join(ROOT_FOLDER, f"SRA LINE{i}")
         files = glob.glob(os.path.join(folder, "*.txt"))
 
+        print(f"{line_name} : {len(files)} files")
+
+        total_files += len(files)
+
         for file_path in files:
             all_rows.extend(parse_profile(file_path, line_name))
 
     all_rows.sort(key=lambda r: (r["line"], r["datetime"], r["zone"], r["file"]))
-    return all_rows
 
+    print("-" * 40)
+    print(f"Total TXT files : {total_files}")
+    print(f"Total Rows      : {len(all_rows)}")
+    print("-" * 40)
+
+    return all_rows
 
 @app.route("/")
 def home():
